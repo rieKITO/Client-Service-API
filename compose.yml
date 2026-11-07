@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: clients
+      POSTGRES_USER: clients
+      POSTGRES_PASSWORD: clients
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "clients", "-d", "clients"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  postgres_data:
