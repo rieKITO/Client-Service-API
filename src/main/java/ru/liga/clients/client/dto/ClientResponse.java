@@ -25,5 +25,5 @@ public record ClientResponse(
                 client.getUpdatedAt()
         );
     }
-    
+
 }
